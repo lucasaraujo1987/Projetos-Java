@@ -4,7 +4,13 @@
  */
 package com.br.VIEW;
 
+import com.br.DAO.LoginDAO;
+import com.br.DTO.LoginDTO;
 import java.awt.Color;
+import java.awt.HeadlessException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -59,18 +65,28 @@ public class TelaLoginVIEW extends javax.swing.JFrame {
         btnEntrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEntrar.setForeground(new java.awt.Color(0, 0, 0));
         btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEntrarActionPerformed(evt);
+            }
+        });
 
         btnNovoUsuario.setBackground(new java.awt.Color(51, 153, 255));
         btnNovoUsuario.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnNovoUsuario.setForeground(new java.awt.Color(0, 0, 0));
         btnNovoUsuario.setText("Novo Usuário");
+        btnNovoUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoUsuarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
+                .addGap(170, 170, 170)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -79,23 +95,25 @@ public class TelaLoginVIEW extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jLabel3))
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(170, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)))))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
@@ -109,12 +127,24 @@ public class TelaLoginVIEW extends javax.swing.JFrame {
                 .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnNovoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+
+        Logar();
+        
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnNovoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoUsuarioActionPerformed
+
+        TelaCadastroLogin();
+
+    }//GEN-LAST:event_btnNovoUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,4 +190,41 @@ public class TelaLoginVIEW extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void Logar() {
+
+        try {
+            String usuario_login, senha_login;
+
+            usuario_login = txtUsuario.getText();
+            senha_login = txtSenha.getText();
+
+            LoginDTO objLoginDTO = new LoginDTO();
+            objLoginDTO.setUsuario_login(usuario_login);
+            objLoginDTO.setSenha_login(senha_login);
+
+            LoginDAO objLoginDAO = new LoginDAO();
+            ResultSet rsLoginDAO = objLoginDAO.login(objLoginDTO);
+
+            if (rsLoginDAO.next()) {
+                TelaInicialVIEW objTelaInicialVIEW = new TelaInicialVIEW();
+                objTelaInicialVIEW.setVisible(true);
+                dispose();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuário ou Senha Invalido ");
+            }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao Logar " + e);
+
+        }
+    }
+
+    
+    private void TelaCadastroLogin(){
+        TelaCadastroLoginVIEW objTelaCadastroLoginVIEW = new TelaCadastroLoginVIEW();
+        objTelaCadastroLoginVIEW.setVisible(true);
+        dispose();
+        
+    }
 }
