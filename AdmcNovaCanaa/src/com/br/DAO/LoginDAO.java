@@ -19,7 +19,7 @@ public class LoginDAO {
     public ResultSet login(LoginDTO objLoginDTO) {
         String senha = objLoginDTO.getSenha_login();
 
-        con = new ConexaoDAO().coonexaoBD();
+        con = new ConexaoDAO().conexaoBD();
 
         try {
             String sql = "select * from login where usuario_login = ? and senha_login = ?";

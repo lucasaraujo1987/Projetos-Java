@@ -23,7 +23,7 @@ public class CriarCadastroDAO {
         String sql = "insert into login (id_login, usuario_login, senha_login, email_login) values (?,?,?,?)";
         String senha = objLoginDTO.getSenha_login();
         
-        con = new ConexaoDAO().coonexaoBD();
+        con = new ConexaoDAO().conexaoBD();
         
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");

@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class ConexaoDAO {
 
-    public Connection coonexaoBD() {
+    public Connection conexaoBD() {
         Connection con = null;
 
         try {
