@@ -1,12 +1,10 @@
 package com.br.DTO;
 
-import java.util.Date;
 
 public class AdicionarMembroDTO {
     
     private int id_membro;    
-    private String nome_membro, cpf_membro, rg_membro, email_membro, celular_membro, estadoCivil_membro, mae_membro, pai_membro, conjugue_membro;
-    private Date  nascimento_membro;
+    private String nome_membro, nascimento_membro, cpf_membro, rg_membro, email_membro, celular_membro, estadoCivil_membro, mae_membro, pai_membro, conjugue_membro;
     
     public int getId_membro() {
         return id_membro;
@@ -40,11 +38,11 @@ public class AdicionarMembroDTO {
         this.rg_membro = rg_membro;
     }
 
-    public Date getNascimento_membro() {
+    public String getNascimento_membro() {
         return nascimento_membro;
     }
 
-    public void setNascimento_membro(Date nascimento_membro) {
+    public void setNascimento_membro(String nascimento_membro) {
         this.nascimento_membro = nascimento_membro;
     }
 

@@ -4,15 +4,18 @@
  */
 package com.br.VIEW;
 
-import com.br.DAO.AdicionarMembroDAO;
+import com.br.DAO.MembroDAO;
 import com.br.DTO.AdicionarMembroDTO;
 import com.br.DTO.DadosIgrejaMembroDTO;
 import com.br.DTO.EndereçoMembroDTO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,6 +28,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
      */
     public TelaAdicionarMembroVIEW() {
         initComponents();
+        listarMembros();
     }
 
     /**
@@ -40,7 +44,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -90,7 +94,13 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         cbxEBD = new javax.swing.JComboBox<>();
         jLabel26 = new javax.swing.JLabel();
         txtCartaoMembro = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnAdicionar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaMembro = new javax.swing.JTable();
+        btnCarregar = new javax.swing.JButton();
+        btnLimparCampos = new javax.swing.JButton();
+        btnLimparCampos1 = new javax.swing.JButton();
+        btnLimparCampos2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -118,8 +128,8 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Registro");
 
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtId.setEditable(false);
+        txtId.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Nome");
@@ -134,7 +144,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtNascimento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNascimento.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         txtNascimento.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -230,7 +240,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -260,7 +270,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -468,7 +478,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbxUF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -489,7 +499,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtBatismo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBatismo.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         txtBatismo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
 
         jLabel23.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -533,7 +543,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtCartaoMembro))
-                .addGap(514, 514, 514))
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,11 +571,69 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setText("Adicionar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAdicionarActionPerformed(evt);
+            }
+        });
+
+        tabelaMembro.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        tabelaMembro.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "<html><p style=\"font-size:12; font-weight: bold;\">Código<p></html>", "<html><p style=\"font-size:12; font-weight: bold;\">Nome<p></html>", "<html><p style=\"font-size:12; font-weight: bold;\">Nascimento<p></html>", "<html><p style=\"font-size:12; font-weight: bold;\">Batismo<p></html>"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaMembro.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tabelaMembro);
+        if (tabelaMembro.getColumnModel().getColumnCount() > 0) {
+            tabelaMembro.getColumnModel().getColumn(0).setPreferredWidth(40);
+            tabelaMembro.getColumnModel().getColumn(1).setPreferredWidth(130);
+            tabelaMembro.getColumnModel().getColumn(2).setPreferredWidth(65);
+            tabelaMembro.getColumnModel().getColumn(3).setPreferredWidth(65);
+        }
+
+        btnCarregar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCarregar.setText("Carregar Dados");
+        btnCarregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregarActionPerformed(evt);
+            }
+        });
+
+        btnLimparCampos.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLimparCampos.setText("Limpar Campos");
+        btnLimparCampos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCamposActionPerformed(evt);
+            }
+        });
+
+        btnLimparCampos1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLimparCampos1.setText("Alterar");
+        btnLimparCampos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCampos1ActionPerformed(evt);
+            }
+        });
+
+        btnLimparCampos2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLimparCampos2.setText("Excluir");
+        btnLimparCampos2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparCampos2ActionPerformed(evt);
             }
         });
 
@@ -615,41 +683,58 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnAdicionar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnLimparCampos1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnLimparCampos2)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnCarregar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btnLimparCampos)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(165, 165, 165))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(14, 14, 14))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnAdicionar)
+                            .addComponent(btnCarregar)
+                            .addComponent(btnLimparCampos)
+                            .addComponent(btnLimparCampos1)
+                            .addComponent(btnLimparCampos2)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -663,22 +748,48 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSairActionPerformed
 
     private void menuAdionarMembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAdionarMembroActionPerformed
-        
+
         MenuAdiconarMembro();
-        
+
     }//GEN-LAST:event_menuAdionarMembroActionPerformed
 
     private void txtCepKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCepKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCepKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         try {
             adicionarMembro();
         } catch (ParseException ex) {
             Logger.getLogger(TelaAdicionarMembroVIEW.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+        LimparCampos();
+        listarMembros();
+
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
+
+        carregarCampos();
+        listarMembros();
+
+    }//GEN-LAST:event_btnCarregarActionPerformed
+
+    private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
+        
+        LimparCampos();
+        listarMembros();
+
+    }//GEN-LAST:event_btnLimparCamposActionPerformed
+
+    private void btnLimparCampos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampos1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparCampos1ActionPerformed
+
+    private void btnLimparCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampos2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimparCampos2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -691,7 +802,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
+                if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
@@ -716,11 +827,15 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnCarregar;
+    private javax.swing.JButton btnLimparCampos;
+    private javax.swing.JButton btnLimparCampos1;
+    private javax.swing.JButton btnLimparCampos2;
     private javax.swing.JComboBox<String> cbxCargo;
     private javax.swing.JComboBox<String> cbxCivil;
     private javax.swing.JComboBox<String> cbxEBD;
     private javax.swing.JComboBox<String> cbxUF;
-    private javax.swing.JButton jButton1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -755,11 +870,12 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem menuAdionarMembro;
     private javax.swing.JMenuItem menuSair;
+    private javax.swing.JTable tabelaMembro;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtBatismo;
     private javax.swing.JFormattedTextField txtCPF;
@@ -770,6 +886,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     private javax.swing.JTextField txtComplemento;
     private javax.swing.JTextField txtConjugue;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtLogradouro;
     private javax.swing.JTextField txtMae;
     private javax.swing.JTextField txtNacionalidade;
@@ -780,31 +897,29 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtRG;
     // End of variables declaration//GEN-END:variables
 
-
     //Seção de botões do Menu
     private void Sair() {
         TelaLoginVIEW objTelaLoginVIEW = new TelaLoginVIEW();
         objTelaLoginVIEW.setVisible(true);
         dispose();
     }
-    
-    private void MenuAdiconarMembro(){
+
+    private void MenuAdiconarMembro() {
         TelaAdicionarMembroVIEW objTelaAdicionarMembroVIEW = new TelaAdicionarMembroVIEW();
         objTelaAdicionarMembroVIEW.setVisible(true);
         dispose();
     }
-    
-    private void adicionarMembro() throws ParseException{
-        String nome_membro, cpf_membro, rg_membro, email_membro, celular_membro, estadoCivil_membro, mae_membro, pai_membro, conjugue_membro,
-               cep_endereco, logradouro_endereco, numero_endereco, complemento_endereco, bairro_endereco, cidade_endereco, uf_endereco, pais_endereco,
-               cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD;
-        Date data_batismo, nascimento_membro;
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-        
+
+    private void adicionarMembro() throws ParseException {
+        String nome_membro, cpf_membro, nascimento_membro, rg_membro, email_membro, celular_membro, estadoCivil_membro, mae_membro, pai_membro, conjugue_membro,
+                cep_endereco, logradouro_endereco, numero_endereco, complemento_endereco, bairro_endereco, cidade_endereco, uf_endereco, pais_endereco,
+                cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD, data_batismo;
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-dd-MM");
+
         nome_membro = txtNome.getText();
         cpf_membro = txtCPF.getText();
         rg_membro = txtRG.getText();
-        nascimento_membro = formatador.parse(txtNascimento.getText());
+        nascimento_membro = txtNascimento.getText();
         email_membro = txtEmail.getText();
         celular_membro = txtCelular.getText();
         estadoCivil_membro = cbxCivil.getSelectedItem().toString();
@@ -819,11 +934,11 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         cidade_endereco = txtCidade.getText();
         uf_endereco = cbxUF.getSelectedItem().toString();
         pais_endereco = txtNacionalidade.getText();
-        data_batismo = formatador.parse(txtBatismo.getText());
+        data_batismo = txtBatismo.getText();
         cargo_eclesiastico = cbxCargo.getSelectedItem().toString();
         numero_cartaoMembro = txtCartaoMembro.getText();
         matriculado_EBD = cbxEBD.getSelectedItem().toString();
-        
+
         AdicionarMembroDTO objAdicionarMembroDTO = new AdicionarMembroDTO();
         objAdicionarMembroDTO.setNome_membro(nome_membro);
         objAdicionarMembroDTO.setCpf_membro(cpf_membro);
@@ -836,10 +951,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         objAdicionarMembroDTO.setPai_membro(pai_membro);
         objAdicionarMembroDTO.setCpf_membro(cpf_membro);
         objAdicionarMembroDTO.setConjugue_membro(conjugue_membro);
-        
-        AdicionarMembroDAO objAdicionarMembroDAO = new AdicionarMembroDAO();
-        objAdicionarMembroDAO.adicionarMembro(objAdicionarMembroDTO);
-        
+
         EndereçoMembroDTO objEndereçoMembroDTO = new EndereçoMembroDTO();
         objEndereçoMembroDTO.setCep_endereco(cep_endereco);
         objEndereçoMembroDTO.setLogradouro_endereco(logradouro_endereco);
@@ -849,16 +961,112 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         objEndereçoMembroDTO.setCidade_endereco(cidade_endereco);
         objEndereçoMembroDTO.setUf_endereco(uf_endereco);
         objEndereçoMembroDTO.setPais_endereco(pais_endereco);
-        
-        objAdicionarMembroDAO.enderecoMembro(objEndereçoMembroDTO);
-        
+
         DadosIgrejaMembroDTO objDadosIgrejaMembroDTO = new DadosIgrejaMembroDTO();
         objDadosIgrejaMembroDTO.setData_batismo(data_batismo);
         objDadosIgrejaMembroDTO.setCargo_eclesiastico(cargo_eclesiastico);
         objDadosIgrejaMembroDTO.setMatriculado_EBD(matriculado_EBD);
         objDadosIgrejaMembroDTO.setNumero_cartaoMembro(numero_cartaoMembro);
+
+        MembroDAO objMembroDAO = new MembroDAO();
+        objMembroDAO.adicionarMembro(objAdicionarMembroDTO, objEndereçoMembroDTO, objDadosIgrejaMembroDTO);
+
+        txtNome.requestFocus();
+
+    }
+
+    private void LimparCampos() {
+
+        txtId.setText("");
+        txtNome.setText("");
+        txtCPF.setText("");
+        txtRG.setText("");
+        txtNascimento.setText("");
+        txtEmail.setText("");
+        txtCelular.setText("");
+        cbxCivil.setSelectedIndex(0);
+        txtMae.setText("");
+        txtPai.setText("");
+        txtConjugue.setText("");
+        txtCep.setText("");
+        txtLogradouro.setText("");
+        txtNumero.setText("");
+        txtComplemento.setText("");
+        txtBairro.setText("");
+        txtCidade.setText("");
+        cbxUF.setSelectedIndex(0);
+        txtNacionalidade.setText("");
+        txtBatismo.setText("");
+        cbxCargo.setSelectedIndex(0);
+        txtCartaoMembro.setText("");
+        cbxEBD.setSelectedIndex(0);
+
+        txtNome.requestFocus();
+    }
+
+    private void listarMembros() {
+
+        try {
+
+            MembroDAO objMembroDAO = new MembroDAO();
+            DefaultTableModel model = (DefaultTableModel) tabelaMembro.getModel();
+            model.setNumRows(0);
+
+            ArrayList<AdicionarMembroDTO> lista_membro = objMembroDAO.pesquisarMembro();
+            ArrayList<DadosIgrejaMembroDTO> lista_dadosIgreja = objMembroDAO.pesquisarDadosIgreja();
+
+            for (int num = 0; num < lista_membro.size(); num++) {
+                model.addRow(new Object[]{
+                    lista_membro.get(num).getId_membro(),
+                    lista_membro.get(num).getNome_membro(),
+                    lista_membro.get(num).getNascimento_membro(),
+                    lista_dadosIgreja.get(num).getData_batismo(),
+                    
+                });
+            }
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(null, "Erro ao exibir lista de membros" + e);
+
+        }
+    }
+
+    private void carregarCampos() {
+
+        int setar = tabelaMembro.getSelectedRow();
+        int idPesquisar = Integer.parseInt(tabelaMembro.getModel().getValueAt(setar, 0).toString());
         
-        objAdicionarMembroDAO.dadosIgrejaMembro(objDadosIgrejaMembroDTO);
+
+        MembroDAO objMembroDAO = new MembroDAO();
+        AdicionarMembroDTO objAdicionarMembroDTO = objMembroDAO.getPesquisar(idPesquisar);
+        EndereçoMembroDTO objEndereçoMembroDTO = objMembroDAO.getEndereco(idPesquisar);
+        DadosIgrejaMembroDTO objDadosIgrejaMembroDTO = objMembroDAO.getDados(idPesquisar);
+
+        txtId.setText(tabelaMembro.getModel().getValueAt(setar, 0).toString());
+        txtNome.setText(objAdicionarMembroDTO.getNome_membro());
+        txtNascimento.setText(objAdicionarMembroDTO.getNascimento_membro());
+        txtCPF.setText(objAdicionarMembroDTO.getCpf_membro());
+        txtRG.setText(objAdicionarMembroDTO.getRg_membro());
+        txtEmail.setText(objAdicionarMembroDTO.getEmail_membro());
+        txtCelular.setText(objAdicionarMembroDTO.getCelular_membro());
+        cbxCivil.setSelectedItem(objAdicionarMembroDTO.getEstadoCivil_membro());
+        txtMae.setText(objAdicionarMembroDTO.getMae_membro());
+        txtPai.setText(objAdicionarMembroDTO.getPai_membro());
+        txtConjugue.setText(objAdicionarMembroDTO.getConjugue_membro());
+        txtCep.setText(objEndereçoMembroDTO.getCep_endereco());
+        txtLogradouro.setText(objEndereçoMembroDTO.getLogradouro_endereco());
+        txtNumero.setText(objEndereçoMembroDTO.getNumero_endereco());
+        txtComplemento.setText(objEndereçoMembroDTO.getComplemento_endereco());
+        txtBairro.setText(objEndereçoMembroDTO.getBairro_endereco());
+        txtCidade.setText(objEndereçoMembroDTO.getCidade_endereco());
+        cbxUF.setSelectedItem(objEndereçoMembroDTO.getUf_endereco());
+        txtNacionalidade.setText(objEndereçoMembroDTO.getPais_endereco());
+        txtBatismo.setText(objDadosIgrejaMembroDTO.getData_batismo());
+        cbxCargo.setSelectedItem(objDadosIgrejaMembroDTO.getCargo_eclesiastico());
+        txtCartaoMembro.setText(objDadosIgrejaMembroDTO.getNumero_cartaoMembro());
+        cbxEBD.setSelectedItem(objDadosIgrejaMembroDTO.getMatriculado_EBD());
+
     }
 
 }

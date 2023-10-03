@@ -1,6 +1,6 @@
 package com.br.DTO;
 
-public class EndereçoMembroDTO {
+public class EndereçoMembroDTO{
     
     private int id_endereco;
     private String cep_endereco, logradouro_endereco, numero_endereco, complemento_endereco, bairro_endereco, cidade_endereco, uf_endereco, pais_endereco;

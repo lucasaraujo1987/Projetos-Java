@@ -1,12 +1,10 @@
 package com.br.DTO;
 
-import java.util.Date;
 
-public class DadosIgrejaMembroDTO {
+public class DadosIgrejaMembroDTO{
     
     private int id_dados;
-    private String cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD;
-    private Date data_batismo;
+    private String cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD, data_batismo;
     
     public int getId_dados() {
         return id_dados;
@@ -16,11 +14,11 @@ public class DadosIgrejaMembroDTO {
         this.id_dados = id_dados;
     }
 
-    public Date getData_batismo() {
+    public String getData_batismo() {
         return data_batismo;
     }
 
-    public void setData_batismo(Date data_batismo) {
+    public void setData_batismo(String data_batismo) {
         this.data_batismo = data_batismo;
     }
 
