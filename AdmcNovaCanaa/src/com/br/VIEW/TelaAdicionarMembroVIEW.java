@@ -99,11 +99,12 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         tabelaMembro = new javax.swing.JTable();
         btnCarregar = new javax.swing.JButton();
         btnLimparCampos = new javax.swing.JButton();
-        btnLimparCampos1 = new javax.swing.JButton();
-        btnLimparCampos2 = new javax.swing.JButton();
+        btnAlterarMembro = new javax.swing.JButton();
+        btnExcluirMembro = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuAdionarMembro = new javax.swing.JMenuItem();
@@ -621,25 +622,34 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
             }
         });
 
-        btnLimparCampos1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnLimparCampos1.setText("Alterar");
-        btnLimparCampos1.addActionListener(new java.awt.event.ActionListener() {
+        btnAlterarMembro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAlterarMembro.setText("Alterar");
+        btnAlterarMembro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparCampos1ActionPerformed(evt);
+                btnAlterarMembroActionPerformed(evt);
             }
         });
 
-        btnLimparCampos2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnLimparCampos2.setText("Excluir");
-        btnLimparCampos2.addActionListener(new java.awt.event.ActionListener() {
+        btnExcluirMembro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnExcluirMembro.setText("Excluir");
+        btnExcluirMembro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparCampos2ActionPerformed(evt);
+                btnExcluirMembroActionPerformed(evt);
             }
         });
 
         jMenu1.setText("Arquivo");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenu1.add(jSeparator1);
+
+        jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jMenuItem2.setText("Novo Usuário");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         menuSair.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuSair.setText("Sair");
@@ -693,9 +703,9 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(btnAdicionar)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btnLimparCampos1)
+                                    .addComponent(btnAlterarMembro)
                                     .addGap(18, 18, 18)
-                                    .addComponent(btnLimparCampos2)
+                                    .addComponent(btnExcluirMembro)
                                     .addGap(18, 18, 18)
                                     .addComponent(btnCarregar)
                                     .addGap(18, 18, 18)
@@ -731,8 +741,8 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                             .addComponent(btnAdicionar)
                             .addComponent(btnCarregar)
                             .addComponent(btnLimparCampos)
-                            .addComponent(btnLimparCampos1)
-                            .addComponent(btnLimparCampos2)))
+                            .addComponent(btnAlterarMembro)
+                            .addComponent(btnExcluirMembro)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -783,13 +793,34 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
-    private void btnLimparCampos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampos1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLimparCampos1ActionPerformed
+    private void btnAlterarMembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarMembroActionPerformed
+        
+        try {
+            alterarMembro();
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaAdicionarMembroVIEW.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        LimparCampos();
+        listarMembros();
+        
+    }//GEN-LAST:event_btnAlterarMembroActionPerformed
 
-    private void btnLimparCampos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCampos2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLimparCampos2ActionPerformed
+    private void btnExcluirMembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMembroActionPerformed
+
+        ExcluirMembro();
+        LimparCampos();
+        listarMembros();
+        
+    }//GEN-LAST:event_btnExcluirMembroActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        
+        TelaCadastroLoginVIEW objTelaCadastroLoginVIEW = new TelaCadastroLoginVIEW();
+        objTelaCadastroLoginVIEW.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -828,10 +859,10 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnAlterarMembro;
     private javax.swing.JButton btnCarregar;
+    private javax.swing.JButton btnExcluirMembro;
     private javax.swing.JButton btnLimparCampos;
-    private javax.swing.JButton btnLimparCampos1;
-    private javax.swing.JButton btnLimparCampos2;
     private javax.swing.JComboBox<String> cbxCargo;
     private javax.swing.JComboBox<String> cbxCivil;
     private javax.swing.JComboBox<String> cbxEBD;
@@ -867,6 +898,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -974,6 +1006,79 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         txtNome.requestFocus();
 
     }
+    
+    private void alterarMembro() throws ParseException {
+        
+        int id_membro, id_endereco, id_dados;
+        String nome_membro, cpf_membro, nascimento_membro, rg_membro, email_membro, celular_membro, estadoCivil_membro, mae_membro, pai_membro, conjugue_membro,
+                cep_endereco, logradouro_endereco, numero_endereco, complemento_endereco, bairro_endereco, cidade_endereco, uf_endereco, pais_endereco,
+                cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD, data_batismo;
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-dd-MM");
+
+        id_membro = Integer.parseInt(txtId.getText());
+        nome_membro = txtNome.getText();
+        cpf_membro = txtCPF.getText();
+        rg_membro = txtRG.getText();
+        nascimento_membro = txtNascimento.getText();
+        email_membro = txtEmail.getText();
+        celular_membro = txtCelular.getText();
+        estadoCivil_membro = cbxCivil.getSelectedItem().toString();
+        mae_membro = txtMae.getText();
+        pai_membro = txtPai.getText();
+        conjugue_membro = txtConjugue.getText();
+        id_endereco = Integer.parseInt(txtId.getText());
+        cep_endereco = txtCep.getText();
+        logradouro_endereco = txtLogradouro.getText();
+        numero_endereco = txtNumero.getText();
+        complemento_endereco = txtComplemento.getText();
+        bairro_endereco = txtBairro.getText();
+        cidade_endereco = txtCidade.getText();
+        uf_endereco = cbxUF.getSelectedItem().toString();
+        pais_endereco = txtNacionalidade.getText();
+        id_dados = Integer.parseInt(txtId.getText());
+        data_batismo = txtBatismo.getText();
+        cargo_eclesiastico = cbxCargo.getSelectedItem().toString();
+        numero_cartaoMembro = txtCartaoMembro.getText();
+        matriculado_EBD = cbxEBD.getSelectedItem().toString();
+
+        AdicionarMembroDTO objAdicionarMembroDTO = new AdicionarMembroDTO();
+        objAdicionarMembroDTO.setId_membro(id_membro);
+        objAdicionarMembroDTO.setNome_membro(nome_membro);
+        objAdicionarMembroDTO.setCpf_membro(cpf_membro);
+        objAdicionarMembroDTO.setRg_membro(rg_membro);
+        objAdicionarMembroDTO.setNascimento_membro(nascimento_membro);
+        objAdicionarMembroDTO.setEmail_membro(email_membro);
+        objAdicionarMembroDTO.setCelular_membro(celular_membro);
+        objAdicionarMembroDTO.setEstadoCivil_membro(estadoCivil_membro);
+        objAdicionarMembroDTO.setMae_membro(mae_membro);
+        objAdicionarMembroDTO.setPai_membro(pai_membro);
+        objAdicionarMembroDTO.setCpf_membro(cpf_membro);
+        objAdicionarMembroDTO.setConjugue_membro(conjugue_membro);
+
+        EndereçoMembroDTO objEndereçoMembroDTO = new EndereçoMembroDTO();
+        objEndereçoMembroDTO.setId_endereco(id_endereco);
+        objEndereçoMembroDTO.setCep_endereco(cep_endereco);
+        objEndereçoMembroDTO.setLogradouro_endereco(logradouro_endereco);
+        objEndereçoMembroDTO.setNumero_endereco(numero_endereco);
+        objEndereçoMembroDTO.setComplemento_endereco(complemento_endereco);
+        objEndereçoMembroDTO.setBairro_endereco(bairro_endereco);
+        objEndereçoMembroDTO.setCidade_endereco(cidade_endereco);
+        objEndereçoMembroDTO.setUf_endereco(uf_endereco);
+        objEndereçoMembroDTO.setPais_endereco(pais_endereco);
+
+        DadosIgrejaMembroDTO objDadosIgrejaMembroDTO = new DadosIgrejaMembroDTO();
+        objDadosIgrejaMembroDTO.setId_dados(id_dados);
+        objDadosIgrejaMembroDTO.setData_batismo(data_batismo);
+        objDadosIgrejaMembroDTO.setCargo_eclesiastico(cargo_eclesiastico);
+        objDadosIgrejaMembroDTO.setMatriculado_EBD(matriculado_EBD);
+        objDadosIgrejaMembroDTO.setNumero_cartaoMembro(numero_cartaoMembro);
+
+        MembroDAO objMembroDAO = new MembroDAO();
+        objMembroDAO.alterarMembro(objAdicionarMembroDTO, objEndereçoMembroDTO, objDadosIgrejaMembroDTO);
+
+        txtNome.requestFocus();
+
+    }
 
     private void LimparCampos() {
 
@@ -1066,6 +1171,27 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         cbxCargo.setSelectedItem(objDadosIgrejaMembroDTO.getCargo_eclesiastico());
         txtCartaoMembro.setText(objDadosIgrejaMembroDTO.getNumero_cartaoMembro());
         cbxEBD.setSelectedItem(objDadosIgrejaMembroDTO.getMatriculado_EBD());
+
+    }
+    
+    private void ExcluirMembro(){
+        
+        int id;
+        int setar = tabelaMembro.getSelectedRow();
+        
+        id = Integer.parseInt(tabelaMembro.getModel().getValueAt(setar, 0).toString());
+
+        AdicionarMembroDTO objAdicionarMembroDTO = new AdicionarMembroDTO();
+        objAdicionarMembroDTO.setId_membro(id);
+        
+        EndereçoMembroDTO objEndereçoMembroDTO = new EndereçoMembroDTO();
+        objEndereçoMembroDTO.setId_endereco(id);
+        
+        DadosIgrejaMembroDTO objDadosIgrejaMembroDTO = new DadosIgrejaMembroDTO();
+        objDadosIgrejaMembroDTO.setId_dados(id);
+
+        MembroDAO objMembroDAO = new MembroDAO();
+        objMembroDAO.ExcluirMembro(objAdicionarMembroDTO, objEndereçoMembroDTO, objDadosIgrejaMembroDTO);
 
     }
 

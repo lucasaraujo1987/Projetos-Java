@@ -30,6 +30,7 @@ public class TelaInicialVIEW extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem2 = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuAdionarMembro = new javax.swing.JMenuItem();
@@ -39,6 +40,14 @@ public class TelaInicialVIEW extends javax.swing.JFrame {
 
         jMenu1.setText("Arquivo");
         jMenu1.add(jSeparator1);
+
+        jMenuItem2.setText("Novo Usuário");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         menuSair.setText("Sair");
         menuSair.addActionListener(new java.awt.event.ActionListener() {
@@ -94,6 +103,14 @@ public class TelaInicialVIEW extends javax.swing.JFrame {
         
     }//GEN-LAST:event_menuAdionarMembroActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        
+        TelaCadastroLoginVIEW objTelaCadastroLoginVIEW = new TelaCadastroLoginVIEW();
+        objTelaCadastroLoginVIEW.setVisible(true);
+        dispose();
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -135,6 +152,7 @@ public class TelaInicialVIEW extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenuItem menuAdionarMembro;
     private javax.swing.JMenuItem menuSair;
