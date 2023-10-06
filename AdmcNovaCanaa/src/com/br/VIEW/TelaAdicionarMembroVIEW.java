@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -103,8 +104,8 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         btnExcluirMembro = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
         menuSair = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuAdionarMembro = new javax.swing.JMenuItem();
@@ -141,7 +142,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         jLabel5.setText("Nascimento");
 
         try {
-            txtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+            txtNascimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -496,7 +497,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         jPanel5.setPreferredSize(new java.awt.Dimension(974, 126));
 
         try {
-            txtBatismo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##-##-####")));
+            txtBatismo.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -640,7 +641,6 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
 
         jMenu1.setText("Arquivo");
         jMenu1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jMenu1.add(jSeparator1);
 
         jMenuItem2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jMenuItem2.setText("Novo Usuário");
@@ -650,6 +650,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem2);
+        jMenu1.add(jSeparator2);
 
         menuSair.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         menuSair.setText("Sair");
@@ -787,23 +788,23 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCarregarActionPerformed
 
     private void btnLimparCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparCamposActionPerformed
-        
+
         LimparCampos();
         listarMembros();
 
     }//GEN-LAST:event_btnLimparCamposActionPerformed
 
     private void btnAlterarMembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarMembroActionPerformed
-        
+
         try {
             alterarMembro();
         } catch (ParseException ex) {
             Logger.getLogger(TelaAdicionarMembroVIEW.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         LimparCampos();
         listarMembros();
-        
+
     }//GEN-LAST:event_btnAlterarMembroActionPerformed
 
     private void btnExcluirMembroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirMembroActionPerformed
@@ -811,15 +812,15 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         ExcluirMembro();
         LimparCampos();
         listarMembros();
-        
+
     }//GEN-LAST:event_btnExcluirMembroActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        
+
         TelaCadastroLoginVIEW objTelaCadastroLoginVIEW = new TelaCadastroLoginVIEW();
         objTelaCadastroLoginVIEW.setVisible(true);
         dispose();
-        
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
@@ -903,7 +904,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JMenuItem menuAdionarMembro;
     private javax.swing.JMenuItem menuSair;
@@ -945,13 +946,24 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     private void adicionarMembro() throws ParseException {
         String nome_membro, cpf_membro, nascimento_membro, rg_membro, email_membro, celular_membro, estadoCivil_membro, mae_membro, pai_membro, conjugue_membro,
                 cep_endereco, logradouro_endereco, numero_endereco, complemento_endereco, bairro_endereco, cidade_endereco, uf_endereco, pais_endereco,
-                cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD, data_batismo;
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-dd-MM");
+                cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD, data_batismo, diaN, mesN, anoN, nascimento, diaB, mesB, anoB, batismo;
+        
+        diaN = txtNascimento.getText().substring(0, 2);
+        mesN = txtNascimento.getText().substring(3, 5);
+        anoN = txtNascimento.getText().substring(6);
+        
+        nascimento = anoN+"-"+mesN+"-"+diaN;
+        
+        diaB = txtBatismo.getText().substring(0, 2);
+        mesB = txtBatismo.getText().substring(3, 5);
+        anoB = txtBatismo.getText().substring(6);
+        
+        batismo = anoB+"-"+mesB+"-"+diaB;
 
         nome_membro = txtNome.getText();
         cpf_membro = txtCPF.getText();
         rg_membro = txtRG.getText();
-        nascimento_membro = txtNascimento.getText();
+        nascimento_membro = nascimento;
         email_membro = txtEmail.getText();
         celular_membro = txtCelular.getText();
         estadoCivil_membro = cbxCivil.getSelectedItem().toString();
@@ -966,7 +978,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         cidade_endereco = txtCidade.getText();
         uf_endereco = cbxUF.getSelectedItem().toString();
         pais_endereco = txtNacionalidade.getText();
-        data_batismo = txtBatismo.getText();
+        data_batismo = batismo;
         cargo_eclesiastico = cbxCargo.getSelectedItem().toString();
         numero_cartaoMembro = txtCartaoMembro.getText();
         matriculado_EBD = cbxEBD.getSelectedItem().toString();
@@ -1006,20 +1018,31 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         txtNome.requestFocus();
 
     }
-    
+
     private void alterarMembro() throws ParseException {
-        
+
         int id_membro, id_endereco, id_dados;
         String nome_membro, cpf_membro, nascimento_membro, rg_membro, email_membro, celular_membro, estadoCivil_membro, mae_membro, pai_membro, conjugue_membro,
                 cep_endereco, logradouro_endereco, numero_endereco, complemento_endereco, bairro_endereco, cidade_endereco, uf_endereco, pais_endereco,
-                cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD, data_batismo;
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-dd-MM");
+                cargo_eclesiastico, numero_cartaoMembro, matriculado_EBD, data_batismo, diaN, mesN, anoN, nascimento, diaB, mesB, anoB, batismo;
 
+        diaN = txtNascimento.getText().substring(0, 2);
+        mesN = txtNascimento.getText().substring(3, 5);
+        anoN = txtNascimento.getText().substring(6);
+        
+        nascimento = anoN+"-"+mesN+"-"+diaN;
+        
+        diaB = txtBatismo.getText().substring(0, 2);
+        mesB = txtBatismo.getText().substring(3, 5);
+        anoB = txtBatismo.getText().substring(6);
+        
+        batismo = anoB+"-"+mesB+"-"+diaB;
+        
         id_membro = Integer.parseInt(txtId.getText());
         nome_membro = txtNome.getText();
         cpf_membro = txtCPF.getText();
         rg_membro = txtRG.getText();
-        nascimento_membro = txtNascimento.getText();
+        nascimento_membro = nascimento;
         email_membro = txtEmail.getText();
         celular_membro = txtCelular.getText();
         estadoCivil_membro = cbxCivil.getSelectedItem().toString();
@@ -1036,7 +1059,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         uf_endereco = cbxUF.getSelectedItem().toString();
         pais_endereco = txtNacionalidade.getText();
         id_dados = Integer.parseInt(txtId.getText());
-        data_batismo = txtBatismo.getText();
+        data_batismo = batismo;
         cargo_eclesiastico = cbxCargo.getSelectedItem().toString();
         numero_cartaoMembro = txtCartaoMembro.getText();
         matriculado_EBD = cbxEBD.getSelectedItem().toString();
@@ -1110,7 +1133,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
     }
 
     private void listarMembros() {
-
+        
         try {
 
             MembroDAO objMembroDAO = new MembroDAO();
@@ -1125,9 +1148,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
                     lista_membro.get(num).getId_membro(),
                     lista_membro.get(num).getNome_membro(),
                     lista_membro.get(num).getNascimento_membro(),
-                    lista_dadosIgreja.get(num).getData_batismo(),
-                    
-                });
+                    lista_dadosIgreja.get(num).getData_batismo(),});
             }
 
         } catch (Exception e) {
@@ -1141,7 +1162,6 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
 
         int setar = tabelaMembro.getSelectedRow();
         int idPesquisar = Integer.parseInt(tabelaMembro.getModel().getValueAt(setar, 0).toString());
-        
 
         MembroDAO objMembroDAO = new MembroDAO();
         AdicionarMembroDTO objAdicionarMembroDTO = objMembroDAO.getPesquisar(idPesquisar);
@@ -1150,7 +1170,7 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
 
         txtId.setText(tabelaMembro.getModel().getValueAt(setar, 0).toString());
         txtNome.setText(objAdicionarMembroDTO.getNome_membro());
-        txtNascimento.setText(objAdicionarMembroDTO.getNascimento_membro());
+        txtNascimento.setText(tabelaMembro.getModel().getValueAt(setar, 2).toString());
         txtCPF.setText(objAdicionarMembroDTO.getCpf_membro());
         txtRG.setText(objAdicionarMembroDTO.getRg_membro());
         txtEmail.setText(objAdicionarMembroDTO.getEmail_membro());
@@ -1167,31 +1187,35 @@ public class TelaAdicionarMembroVIEW extends javax.swing.JFrame {
         txtCidade.setText(objEndereçoMembroDTO.getCidade_endereco());
         cbxUF.setSelectedItem(objEndereçoMembroDTO.getUf_endereco());
         txtNacionalidade.setText(objEndereçoMembroDTO.getPais_endereco());
-        txtBatismo.setText(objDadosIgrejaMembroDTO.getData_batismo());
+        txtBatismo.setText(tabelaMembro.getModel().getValueAt(setar, 3).toString());
         cbxCargo.setSelectedItem(objDadosIgrejaMembroDTO.getCargo_eclesiastico());
         txtCartaoMembro.setText(objDadosIgrejaMembroDTO.getNumero_cartaoMembro());
         cbxEBD.setSelectedItem(objDadosIgrejaMembroDTO.getMatriculado_EBD());
+        
+        txtNome.requestFocus();
 
     }
-    
-    private void ExcluirMembro(){
-        
+
+    private void ExcluirMembro() {
+
         int id;
         int setar = tabelaMembro.getSelectedRow();
-        
+
         id = Integer.parseInt(tabelaMembro.getModel().getValueAt(setar, 0).toString());
 
         AdicionarMembroDTO objAdicionarMembroDTO = new AdicionarMembroDTO();
         objAdicionarMembroDTO.setId_membro(id);
-        
+
         EndereçoMembroDTO objEndereçoMembroDTO = new EndereçoMembroDTO();
         objEndereçoMembroDTO.setId_endereco(id);
-        
+
         DadosIgrejaMembroDTO objDadosIgrejaMembroDTO = new DadosIgrejaMembroDTO();
         objDadosIgrejaMembroDTO.setId_dados(id);
 
         MembroDAO objMembroDAO = new MembroDAO();
         objMembroDAO.ExcluirMembro(objAdicionarMembroDTO, objEndereçoMembroDTO, objDadosIgrejaMembroDTO);
+        
+        txtNome.requestFocus();
 
     }
 

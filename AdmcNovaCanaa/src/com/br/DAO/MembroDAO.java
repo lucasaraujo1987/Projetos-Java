@@ -95,7 +95,7 @@ public class MembroDAO {
                 objAdicionarMembroDTO.setEmail_membro(rs.getString("email_membro"));
                 objAdicionarMembroDTO.setEstadoCivil_membro(rs.getString("estadoCivil_membro"));
                 objAdicionarMembroDTO.setMae_membro(rs.getString("mae_membro"));
-                objAdicionarMembroDTO.setNascimento_membro(rs.getString("nascimento_membro"));
+                objAdicionarMembroDTO.setNascimento_membro(rs.getString("nascimento_membro").substring(8, 10).concat("/").concat(rs.getString("nascimento_membro").substring(5, 7).concat("/").concat(rs.getString("nascimento_membro").substring(0, 4))));
                 objAdicionarMembroDTO.setNome_membro(rs.getString("nome_membro"));
                 objAdicionarMembroDTO.setPai_membro(rs.getString("pai_membro"));
                 objAdicionarMembroDTO.setRg_membro(rs.getString("rg_membro"));
@@ -162,7 +162,7 @@ public class MembroDAO {
                 DadosIgrejaMembroDTO objDadosIgrejaMembroDTO = new DadosIgrejaMembroDTO();
                 objDadosIgrejaMembroDTO.setId_dados(rs.getInt("id_dados"));
                 objDadosIgrejaMembroDTO.setCargo_eclesiastico(rs.getString("cargo_eclesiastico"));
-                objDadosIgrejaMembroDTO.setData_batismo(rs.getString("data_batismo"));
+                objDadosIgrejaMembroDTO.setData_batismo(rs.getString("data_batismo").substring(8, 10).concat("/").concat(rs.getString("data_batismo").substring(5, 7).concat("/").concat(rs.getString("data_batismo").substring(0, 4))));
                 objDadosIgrejaMembroDTO.setMatriculado_EBD(rs.getString("matriculado_EBD"));
                 objDadosIgrejaMembroDTO.setNumero_cartaoMembro(rs.getString("numero_cartaoMembro"));
 
@@ -311,7 +311,7 @@ public class MembroDAO {
             JOptionPane.showMessageDialog(null, "Erro ao Excluir Membro" + e);
         }
     }
-    
+
     public void alterarMembro(AdicionarMembroDTO objAdicionarMembroDTO, EndereçoMembroDTO objEndereçoMembroDTO, DadosIgrejaMembroDTO objDadosIgrejaMembroDTO) {
 
         String sql = "update membro set nome_membro = ?, cpf_membro = ?, rg_membro = ?, nascimento_membro = ?, email_membro = ?, celular_membro = ?, estadoCivil_membro = ?, mae_membro = ?, pai_membro = ?, conjugue_membro = ? where id_membro = ?";
